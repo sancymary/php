@@ -1,0 +1,22 @@
+ /* *{
+    background-color:rosybrown;
+} */
+:root{
+    font-size: 62.5%;
+}
+nav{
+    /* font-size:1.5; */
+    padding: 10px 20px !important;
+}
+body{
+    font-size: 1.5rem;
+}
+h1{
+    font-size: 3.1rem;
+}
+img[ src="assets/img/logo.png"]{
+    width: 50px;
+}
+span{
+    color: red;
+}
