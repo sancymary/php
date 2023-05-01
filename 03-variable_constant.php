@@ -20,12 +20,15 @@
   <header>
   <nav class="navbar navbar-dark bg-dark navbar-expand-lg" >
   <div class="container-fluid">
-    <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt=""></a>
+    <a class="navbar-brand" href="01-index.php"><img src="assets/img/logo.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="01_index.php">Introduction</a>
+          </li>
         <li class="nav-item">
           <a class="nav-link " aria-current="page" href="#">Introduction</a>
         </li>
@@ -35,6 +38,10 @@
         <li class="nav-item">
           <a class="nav-link" href="03-variable_constant.php">Les variable et les constant</a>
         </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="04-conditioncor.php">Les conditions en PHP</a>
+          </li>
         
                
       </ul>
@@ -156,13 +163,116 @@ $text = '<span style="color: blue">bleu</style></span>';
 
                 echo'<h2 class ="mt-5"> operateure numerique </h2>';
                 $a=10;
-                $b=5;
+                $b=2;
                 echo "$a +$b=".$a+$b ."<br>";//affiche 15
 
                 echo "$a +$b=" .$a-$b ."<br>";//affiche 5
                 echo "$a -$b=" .$a*$b ."<br>";//affiche 50
                 echo "$a /$b=".$a / $b."<br>";//affiche 2
                 echo "$a %$b=".$a % $b."<br>";//affiche 0
+                //************************************************** */ Jeudi-27/04
+
+                //les operateure affectation compiné pour les valeure numerique:
+                $a+=$b;// equivalent à $s=sa+$b soit $a =10+2//12
+                echo $a;//12
+                echo "<br>";
+                $a-=$b;//// equivalent à $s=sa-$b soit $a =12-2//10
+                echo $a;
+                //il existe auusi les operateure *= et /= et  %=
+                //******************************************************* */
+
+                //INCREMENTATION ET DECREMENTATION
+                echo "<br>";
+                $i=0;
+                $i++;//
+                echo $i;
+                echo "<br>";
+                $i--;
+                echo $i;
+                //**************************************************************** */
+
+                echo '<h2 class="mt-5"> Les variable prédefinis:super-globale</h2>';
+                echo $_SERVER["HTTP_HOST"];
+                echo'<pre>';
+                var_dump($_SERVER);
+                echo'<pre>';
+                
+                //je veux afficher le contenu de ma super_global  echo $_SERVER["HTTP_HOST"]; dans une chaine de caractere:
+                $message="le nom de domaine à partir duquelle j'affiche ma page c'est <strong>{$_SERVER["HTTP_HOST"]}</strong> <br>";
+                echo $message;//j'utiliser les accolade pour integrer ma variable $_SERVER["HTTP_HOST"] dans une chaine de caractere
+                //
+
+//si je veux afficher les contenu d'une variable et qu'elle soit collé à une chaine de caractere ex:je veux afficher:
+
+//afficher Aujourd'hui il fait 32°c!!
+$temp=32;
+$meto1="<p> Aujourd'hui il fait {$temp}°c!! </p>";
+$meto2='<p> Aujourd\'hui il fait'.' ' .$temp.'°c!! </p>';
+echo $meto1;
+echo $meto2;
+//************************ */
+echo '<h2 class="mt-5">transtypage des variables</h2>';
+$string1= (int)'100';
+var_dump($string1);//affiche 100 avec type integer
+$string2= (float)'12.5';
+var_dump($string2);//affiche12.5 avec type float
+$string3= (int)'12.5';
+var_dump($string3);//affiche 12 avec type integer
+echo '<br>';
+
+//****************** */
+echo '<h2 class="mt-5"> constante utilisateure</h2>';
+//avec function prédefinie define()
+//le nom de la constante :CHAINE, la valeure de la constante :"la valeure de la constante CHAINE";
+define('CHAINE','la valeure de la chaine CHAINE');
+echo CHAINE;
+define('ENTIER',30);
+echo ENTIER .'<br>';
+echo gettype(ENTIER);
+//je recupére la valeure de  ma constante dans une  chaine de caractere
+echo "j'ai ENTIER ans <br>";//pas de interpratation de la constante ENTIER et la'affichage de son valeure//AFFICHAGE j'ai ENTIER ans
+echo "j'ai". ENTIER."ans <br>";//avec les constante on ne peut pas uitiliser la mecanisme de la substitution des variable
+
+
+//constante avec le mot réservé const:
+//avec const ,il est possible de defini la valeure de la constante en utilisant une expression  scalaire qui contient d'auter constantes.
+//le nombre d'heure mensuele=Temps hebdomadaire X 52 semaines /12 mois (soit 35X52/12=151.67h par mois)
+const SEMAINE =25;
+const HEBDOMADAIRE=35;
+const MOIS=12;
+
+const HEURE= HEBDOMADAIRE * SEMAINE /MOIS;
+echo HEURE.'<br>';
+//************************************************************* */
+
+// avec cette expression on ne peut pas appellé des functions
+// const NBR_AU_PIF =rand(1,10);
+
+define('NBR_AU_PIF' ,rand(1,10));
+echo NBR_AU_PIF;
+//*************************************************** */
+
+echo '<h2 class="mt-5"> constante PREDEFINI/Magiques</h2>';
+echo PHP_VERSION;
+echo '<br>';
+echo PHP_MAJOR_VERSION;
+echo '<br>';
+
+echo __LINE__;
+echo '<br>';
+
+echo __DIR__;
+
+
+
+
+
+
+
+
+
+
+                
 
                 
 

@@ -1,0 +1,1 @@
+<p class="alert alert-success">ceci est 2eme fichier d'inclusion</p>
