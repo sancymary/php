@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Les header en PHP</title>
+    <title><?=$title?></title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.png">
 
 </head>
@@ -43,6 +43,9 @@
           <li class="nav-item">
             <a class="nav-link" href="07-tableau.php">Les tableau</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="08-fonction.php">les founction</a>
+          </li>
         </ul>
        
       </div>
@@ -54,16 +57,16 @@
             <p class="col-md-12 fs-4"> <?=$paragraphe?></p> 
         </section>
   </header><!-- fin header -->
-  <main class="container-fluid px-5">
+  <!-- <main class="container-fluid px-5">
     
-  </main>
-  <footer>
+  </main> -->
+  <!-- <footer>
     <div class="d-flex justify-content-evenly align-items-center bg-dark text-white p-3">
       <a class="nav-link" target="_blank" href="https://www.php.net/manual/fr/langref.php">Doc PHP</a>
       <a class="nav-link" href="01_index.php"><img src="assets/img/logo.png" alt="logo php"></a>
       <a class="nav-link" target="_blank" href="https://devdocs.io/php/">DevDocs</a>
     </div>
-  </footer>
+  </footer> -->
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
