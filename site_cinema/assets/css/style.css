@@ -1,0 +1,118 @@
+
+:root{
+    --red:red;
+    --gray:#191A19;
+    --gray-2:353535;
+    --gray-light:#BBBBBB;
+    --black:#000;
+    --box-shadow-dark:0px 5px 10px 0px rgba(50,50,50,.8);
+    --box-shadow-light: -1px 1px 10px 0px #EFE8E8;
+    font-size: 62.5%;
+
+
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    font-size: 1.6rem;
+    font-family:  'Roboto', sans-serif ;
+    background-color: var(--gray);
+    color: #fff;
+}
+nav {
+    background-color: var(--black);
+}
+
+h1 {
+    font-size: 4rem !important;
+    margin: .8rem 4rem;
+    font-weight: bolder;
+}
+h1 a{
+    font-size: 4rem !important;
+    color: var(--red) !important;
+    font-family: 'Roboto Condensed', sans-serif !important;
+}
+nav li a{
+    color: #fff !important;
+    margin: 0.8rem ;
+}
+li a{
+    font-size: 2rem;
+}
+nav .navbar-toggler {
+    background-color: var(--red);
+    font-size: 1.7rem;
+}
+
+main{
+    padding: 10rem 4rem;
+    /* margin-top: 10rem !important; */
+    min-height: 815px; /* je le met afin d'empêcher le footer de rementer dans la page*/
+    transition: all .2s;
+}
+.slidebarre{
+    background-color: var(--gray-2);
+    color: #fff !important;
+    font-weight: bolder;
+    box-shadow: var(--box-shadow-light)!important;
+}
+h2{
+    font-size: 5rem !important;
+    color: red;
+  font-weight: bolder;
+   }
+   a.btn{
+    background-color: var(--red);
+    color:white;
+    padding: .8rem;
+    font-size: 1.3rem !important;
+    font-weight: bold;
+   }
+/* Footer */
+footer{
+    background-color: var(--black);
+    height: 70px !important;
+    line-height: 70px;
+}
+
+/* formulaire de gestion de donner */
+form.back {
+    width: 50%;
+    margin: 0 auto;
+    box-shadow: var(--box-shadow-light) !important;
+    }
+    
+    form.back > div.row {
+    font-size: 1.8rem; 
+    }
+    
+    form.back .row {
+    padding: 2.5rem;
+    background-color: #212529;
+   
+    }
+    
+    form.back label:not(.form-check-label) {
+    margin-bottom: 1.6rem;
+    font-weight: bolder;
+    color: var(--black);
+    
+    }
+    form.back .form-control {
+    font-size: 1.5rem !important;
+    }
+    
+    form.back button {
+    font-size: 1.4rem !important;
+    }
+    .bi{
+        color: var(--red);
+        font-size: 1.8rem;
+    }
+
+    
