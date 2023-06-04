@@ -1,42 +1,16 @@
 <?php
 $title = "categories";
-require_once"../inc/function.inc.php";
-require_once"../inc/header.inc.php";
-// require_once "../inc/function.inc.php";
-// require_once "../inc/header.inc.php";
+require_once "../inc/function.inc.php";
+require_once "../inc/header.inc.php";
+
+
 // debug($_GET);
 // die;
 
 //supression d'une categorie
 
-// if(isset($_GET['action']) && isset($_GET['id_category'])){
-         
-//     if(!empty($_GET['action']) && $_GET['action'] == 'delete' && !empty($_GET['id_category'])){
-//         // debug($_GET['action']);
 
-//         $idCategory = htmlentities($_GET['id_category']);
 
-//         deleteCategory($idCategory);
-
-//         header('location:dashboard.php?categories_php');
-
-//     }else{
-//         header('location:dashboard.php?categories_php');
-       
-//     }
-// }
-
-// debug($_GET);
-// if(isset($_GET)){
-//     if(isset($_GET['action']) && $_GET['action']=='delete' && isset($_GET['id_category']) && !empty($_GET['id_category'])) {
-//         $idCategory = htmlentities($_GET['id_category']);
-//     deleteCategory( $idCategory );
-//     header('location:dashboard.php?categories_php');
-
-//     }else{
-       
-//     }
-// }
 
 //pour update
 if(isset($_GET['action']) && isset($_GET['id_category'])){
@@ -64,22 +38,7 @@ if(isset($_GET['action']) && isset($_GET['id_category'])){
 
  }
 
-// if(isset($_GET['action']) && isset($_GET['id_category'])){
-         
-//     if(!empty($_GET['action']) && $_GET['action'] == 'update' && !empty($_GET['id_category'])){
-//         // debug($_GET['action']);
 
-//         $idCategory = htmlentities($_GET['id_category']) ;
-
-//         $category = showCategory($idCategory);
-
-//         header('location:dashboard.php?categories_php');
-
-//     }else{
-//         header('location:dashboard.php?categories_php');
-       
-//     }
-// }
 
 
 /* //--------------------------
@@ -211,7 +170,7 @@ if (!empty($_POST)){//// petit rappel : empty() vérifie si une variable est vid
         // debug($categories);
         ?>
         
-        <table class="table table-dark table-bordered mt-5 " >
+        <table class="table table-dark table-bordered mt-5 " > 
             
                 <thead>
                             <tr>

@@ -9,9 +9,16 @@
                 echo'</pre>';
         }
 
+ ///////////////Function de sécurisation/////////////////
+//  function security($variable){
+//     $variable = htmlentities(trim($variable));
+
+//  }
+
+
         ///////////////constante pour  définir le chemin du site/////////////////
 
-        define("RACINE_SITE","/php/site_cinema/");//constante qui défini dans lesquelle se suitue le site pour pouvoir déterminer des chemin absolu à partir de localhost(on ne prend localost).ainsi nous ecrivons tous le chemin (exp:src,href)en absolu avec cette constante
+        define("RACINE_SITE","/php/site_cinema/");//constante qui défini dans lesquelle se suitue le site pour pouvoir déterminer des chemin absolu à partir de localhost(on ne prend localost).ainsi nous ecrivons tous le chemin (exp:src,href)en absolu avec cette constante.
 
 
          ///////////////////////// function de connexion à la BDD/////////////////
@@ -52,7 +59,7 @@
 
             // debug(get_class_methods ($pdo));//permettre afficher la liste des methode présente dans object $pdo
             
-            echo"je suis connecter";
+            // echo"je suis connecter";//je comment 01/06/23
 
         }catch(PDOException $e){// PDOException est une classe qui represnte un erreure émise par PDO et $e c'est l'objet de la classe en question qui vas stocker cette erreure
 
@@ -63,8 +70,10 @@
     }
     connexionBdd();
 
+ 
 
-       ////////////////////////////////////// function alertes //////////////////////////
+
+       ////////////////////////////////////// function alertes //////////////////////////////////////////////////////
 function alert(string $contenu,string $class){
  return "<div class=\"alert alert-$class alert-dismissible fade show\" role=\"alert\">
         $contenu
@@ -76,9 +85,9 @@ function alert(string $contenu,string $class){
 
 }
 
-    ///////////////////////////////////////le Tables//////////////////////////
+   ////////////////////////////////////// LES TABLES //////////////////////////////////////////////////////
 
-    //////////une function crére pour la table categorie//////////////////////////
+    //////////une function crére pour la table categorie///////////////////////////////////////////////////
 
     function createTableCategorie(){
         $pdo = connexionBdd();
@@ -89,9 +98,10 @@ function alert(string $contenu,string $class){
     }
     //createTableCategorie();
 
-    //////////une function pour ajoute une categorie//////////////////////////
+            //////////une function pour ajoute une categorie/////////////////////////////////////////////
+
     function addCatagory(string $nameCategorie,string $description): void {
-        $pdo=connexionBdd();
+        $pdo=connexionBdd(); 
         $sql="INSERT INTO categories (name,description) VALUES (:name, :description)"; // requeste d'insertion que je stocke dans une variable
         $request = $pdo->prepare($sql);//je prepare ma function et je l'execute
         $request->execute(array(
@@ -102,17 +112,19 @@ function alert(string $contenu,string $class){
 
     }
 
-     //////////une function pour recuperer tous les categories //////////////////////////
+     //////////une function pour recuperer tous les categories /////////////////////////////////////////////////
+
      function allcategorie() : array {
         $pdo=connexionBdd();
         // echo "function";
-         $sql="SELECT * FROM categories";// requeste d'insertion que je stocke dans une variable
+         $sql="SELECT * FROM categories";// requête d'insertion que je stocke dans une variable
          $request = $pdo->query($sql);
          $result = $request ->fetchAll();// je utiliser fetchall pour recuperer toutes les lignes à la fois
-        return $result;//ma function retourene un tableau avec les donner recupere de la bdd
+        return $result;//ma fonction retourne un tableau avec les données récupérer de la BDD
      }
 
-    //////////une function pour suprimer tous les categories ////////////////////////// 
+    //////////une function pour suprimer UNE categories /////////////////////////////////////////////////////////// 
+
     function deleteCategory(int $id):void{
         $pdo=connexionBdd();
         $sql="DELETE FROM categories WHERE id_category= :id";
@@ -123,7 +135,8 @@ function alert(string $contenu,string $class){
 
     }
 
-    //////////une function pour update ////////////////////////// 
+    //////////une function pour MODIFIER CATEGORY ////////////////////////// //////////////////////////
+
     function updateCategory(int $id,string $name,string $description):void{
         $pdo=connexionBdd();
         $sql="UPDATE  categories SET name =:name, description =:description where id_category = :id";
@@ -136,6 +149,7 @@ function alert(string $contenu,string $class){
 
     }
       //////////une function pour recuperer une seule categories ////////////////////////// 
+      
       function showCategory(int $id): array{
         $pdo=connexionBdd();
         $sql="SELECT * FROM categories WHERE id_category = :id";
@@ -144,11 +158,148 @@ function alert(string $contenu,string $class){
            
             ':id' => $id
         ));
-        $result=$request->fetch();//un fetch simple car je recupere une seule line bien détermine grace
+        $result=$request->fetch();// Un fetch simple car je récupère une ligne bien déterminé grâce à l'id
 
-        return $result;//ma function retourne un tableau avec une seule line
+        return $result;//ma fonction retourne un tableau avec une seule ligne
 
     }
+//************************************ 01/06/2023**************************** */
+
+     //////// Une fonction pour récupérer l'id d'une catégorie/////////////////////////////////////////////
+
+     function idcategory(string $name):array{ 
+        $pdo=connexionBdd();
+        $sql="SELECT id_category FROM categories WHERE name =:name";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+            ':name' => $name
+        ));
+        $result=$request->fetch();//Un fetch simple car je récupère une ligne bien déterminé grâce à l'id
+        return $result;//// ma fonction retourne un tableau avec une seule ligne
+
+
+     }
+
+     //function showfilms pour afficher un films
+
+     function showfilm(int $id): array{
+        $pdo=connexionBdd();
+        $sql="SELECT * FROM films WHERE id_film = :id";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+           
+            ':id' => $id
+        ));
+        $result=$request->fetch();// Un fetch simple car je récupère une ligne bien déterminé grâce à l'id
+
+        return $result;//ma fonction retourne un tableau avec une seule ligne
+
+    }
+
+    ////////////////////////////////////
+    // fonction update
+
+function updateFilm(int $id, string $title, string $director, string $actors, string $ageLimit, int $category_id, string $duration, string $date, string $synopsis, string $image, float $price, int $stock): void
+{
+     $pdo = connexionBdd();
+
+     $sql = "UPDATE films SET
+                         id_film = :id,
+                         title = :title,
+                         director = :director,
+                         actors = :actors,
+                         ageLimit = :ageLimit,
+                         category_id = :category_id,
+                         duration = :duration,
+                         date = :date,
+                         synopsis = :synopsis,
+                         image = :image,
+                         price = :price,
+                         stock = :stock
+               WHERE id_film = :id";
+          
+     $request = $pdo->prepare($sql);     
+     $request->execute(array( 
+                    ':id'       => $id,
+                    ':title'    => $title,
+                    ':director' => $director,
+                    ':actors'   => $actors,
+                    ':ageLimit' => $ageLimit,
+                    ':category_id'    => $category_id,
+                    ':duration' => $duration,
+                    ':date'     => $date,
+                    ':synopsis' => $synopsis,
+                    ':image'    => $image, // Attention, l'image ne doit pas venir de $_POST, mais de $_FILES
+                    ':price'    => $price,
+                    ':stock'    => $stock
+                    ));
+   
+}
+
+
+     
+
+    
+
+    //************************ function du CRUD pour les films///////////01/06/23///////////////
+    function addFilm(string $title, string $director, string $actors, string $ageLimit, int $category_id, string $duration, string $date, string $synopsis, string $image, float $price, int $stock ): void {
+
+        $pdo = connexionBdd(); // je stock ma connection à la BDD dans une variable 
+    
+        $sql = "INSERT INTO films
+        (title, director, actors, ageLimit, category_id, duration, date, synopsis, image, price, stock)
+        VALUES
+        (:title , :director, :actors, :ageLimit, :category_id, :duration, :date, :synopsis, :image, :price, :stock)"; // Requeêt d'insertion que je la stock dans une variable
+        $request = $pdo->prepare($sql);// Je prépare ma requête  et je l'exécute
+        $request->execute(array( 
+                        ':title'=> $title,
+                        ':director' => $director,
+                        ':actors' => $actors,
+                        ':ageLimit' => $ageLimit,
+                        ':category_id' => $category_id,
+                        ':duration' => $duration,
+                        ':date'=> $date,
+                        ':synopsis' => $synopsis,
+                        ':image' => $image, //attention la photo ne vient de $_POST mais de $_FILES
+                        ':price'=> $price,
+                        ':stock' => $stock,
+                   ));
+                   //  die (print_r($pdo->errorInfo()));
+    }
+
+     ////////create function pour récuparation///////////////////////////01/06/23
+     function allFilm(): array {
+
+        $pdo = connexionBdd();
+        $sql = "SELECT * FROM films";
+        $request = $pdo->query($sql);
+        $result = $request->fetchAll();// j'utilise le fetchAll pour récuperer tout les ligne à la fois
+        return $result; // ma fonction retourne un tableau avec les donées récupérer de la BDD
+   }
+
+   ////////une function de chaine  vers tableaux///////////////////////////01/06/23 et 02/06/23
+   function stringtoarray(string $string):array{
+    $array = explode('/',trim($string,'/')); // je tranforme ma chaine de caractere en tableaux et je suprimer les /autour de la chaine de caractere
+    return $array;//ma function retourne un tableau
+
+   }
+
+   //function delete film:pour suprimer un film////////////////02/06/23
+   function deleteFilm(int $id):void{
+    $pdo=connexionBdd();
+    $sql="DELETE FROM films WHERE id_film= :id";
+    $request=$pdo->prepare($sql);
+    $request->execute(array(
+        ':id' => $id
+    ));
+
+}
+
+
+
+
+     //********************************************************************************* */
+
 
 
      ////////create function pour table users///////////////////////////

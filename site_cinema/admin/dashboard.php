@@ -25,8 +25,8 @@ require_once "../inc/header.inc.php";
             <?php if (isset($_GET['dashboard_php'])): ?>
 
                     <div class="w-50 m-auto">
-                        <h2>bonjour sancy</h2>
-                        <p>bienvenu sur le backoffice</p>
+                        <h2>Bonjour sancy</h2>
+                        <p>Bienvenu sur le backoffice</p>
                         <img src="<?=RACINE_SITE?>assets/img/affiches-films-bleu-orange-2.jpg" alt="sur le immage de film"  width="500"  height ="800">
 
                     </div>
