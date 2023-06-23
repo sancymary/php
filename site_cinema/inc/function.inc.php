@@ -70,6 +70,10 @@
     }
     connexionBdd();
 
+    //////////////////////08/06/23
+    //pour create une section
+    session_start();
+
  
 
 
@@ -85,9 +89,9 @@ function alert(string $contenu,string $class){
 
 }
 
-   ////////////////////////////////////// LES TABLES //////////////////////////////////////////////////////
+   ////////////////////////////////////// LES TABLES ////////////////////////////////////
 
-    //////////une function crére pour la table categorie///////////////////////////////////////////////////
+    //////////une function crére pour la table categorie//////////////////////////////////////
 
     function createTableCategorie(){
         $pdo = connexionBdd();
@@ -98,7 +102,7 @@ function alert(string $contenu,string $class){
     }
     //createTableCategorie();
 
-            //////////une function pour ajoute une categorie/////////////////////////////////////////////
+            //////////une function pour ajoute une categorie////////////////////////////////////
 
     function addCatagory(string $nameCategorie,string $description): void {
         $pdo=connexionBdd(); 
@@ -112,7 +116,7 @@ function alert(string $contenu,string $class){
 
     }
 
-     //////////une function pour recuperer tous les categories /////////////////////////////////////////////////
+     //////////une function pour recuperer tous les categories //////////////////////////
 
      function allcategorie() : array {
         $pdo=connexionBdd();
@@ -123,7 +127,7 @@ function alert(string $contenu,string $class){
         return $result;//ma fonction retourne un tableau avec les données récupérer de la BDD
      }
 
-    //////////une function pour suprimer UNE categories /////////////////////////////////////////////////////////// 
+    //////////une function pour suprimer UNE categories ////////////////////////////////////
 
     function deleteCategory(int $id):void{
         $pdo=connexionBdd();
@@ -135,7 +139,7 @@ function alert(string $contenu,string $class){
 
     }
 
-    //////////une function pour MODIFIER CATEGORY ////////////////////////// //////////////////////////
+    //////////une function pour MODIFIER CATEGORY ////////////////////////// ///////////////
 
     function updateCategory(int $id,string $name,string $description):void{
         $pdo=connexionBdd();
@@ -163,7 +167,47 @@ function alert(string $contenu,string $class){
         return $result;//ma fonction retourne un tableau avec une seule ligne
 
     }
+
+
+    //////////////////////////////////////function pour recupere les films la meme categories 12/06/23
+    function filmbycategoryname(string $name){
+        $pdo=connexionBdd();
+        $sql="SELECT * FROM films WHERE category_id =(SELECT id_category FROM categories WHERE name = :name)";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+            ':name' => $name
+        ));
+        $result=$request->fetchAll();
+
+        return $result;
+
+    }
+    //////////////////////////////////////function pour recupere les films la meme categories 12/06/23
+    function filmbycategoryid(string $id){
+        $pdo=connexionBdd();
+        $sql="SELECT * FROM films WHERE category_id = :id";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+            ':id' => $id
+        ));
+        $result=$request->fetchAll();
+
+        return $result;
+
+    }
+
+
+//*********************************POUR FILMS************************************ */
 //************************************ 01/06/2023**************************** */
+////////create function pour table Films///////////////////////////
+
+function createfilms(){
+    $pdo = connexionBdd();
+    $sql = "CREATE TABLE IF NOT EXISTS films (id_film INT NOT NULL PRIMARY KEY AUTO_INCREMENT,categorie_id INT NOT NULL, title VARCHAR(100) NOT NULL,director VARCHAR(50)NOT NULL,actors VARCHAR(100)NOT NULL,ageLimit VARCHAR(5)  NULL,duration TIME NOT NULL,synopsis TEXT NOT NULL,date DATE NOT NULL,image VARCHAR(255)NOT NULL,price FLOAT NOT NULL,stock INT NULL)";
+
+    $request = $pdo->exec($sql);
+}
+// createfilms();
 
      //////// Une fonction pour récupérer l'id d'une catégorie/////////////////////////////////////////////
 
@@ -180,9 +224,9 @@ function alert(string $contenu,string $class){
 
      }
 
-     //function showfilms pour afficher un films
+     //function showfilms pour afficher un films pour faire modification
 
-     function showfilm(int $id): array{
+     function showfilm(int $id): mixed{
         $pdo=connexionBdd();
         $sql="SELECT * FROM films WHERE id_film = :id";
         $request=$pdo->prepare($sql);
@@ -283,6 +327,17 @@ function updateFilm(int $id, string $title, string $director, string $actors, st
     return $array;//ma function retourne un tableau
 
    }
+   //////////////////////////////Function de connexion 09/06/23 ////////////////////
+   function logout(){
+    if(isset($_GET['action']) && !empty($_GET['action']) && $_GET['action']== 'deconnexion'){
+        unset($_SESSION['user']); //on suprimer l'index "user" de la session pour se deconnecter // cette function détruit les variables stocker comme 'firstname' et email
+        //session_destroy(); // détruit touts le donner de la session déja établir.cette funcction détruit la session sur le serveure
+        header("location:".RACINE_SITE."authentification.php");
+    }
+
+   }
+   logout();
+
 
    //function delete film:pour suprimer un film////////////////02/06/23
    function deleteFilm(int $id):void{
@@ -298,29 +353,161 @@ function updateFilm(int $id, string $title, string $director, string $actors, st
 
 
 
-     //********************************************************************************* */
-
-
+     //****************************POUR USER************************************************* */
 
      ////////create function pour table users///////////////////////////
 
     function createTableUsers(){
         $pdo = connexionBdd();
-        $sql = "CREATE TABLE IF NOT EXISTS users (id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT, firstName VARCHAR(50)NOT NULL,lastName VARCHAR(50)NOT NULL,pseudo VARCHAR(50)NOT NULL,email VARCHAR(100)NOT NULL,mdp VARCHAR(255)NOT NULL,phone VARCHAR(30) NOT NULL,civility ENUM('f','h')NOT NULL,birthday DATE NOT NULL,address VARCHAR(50) NULL,zip VARCHAR(50) NULL,city VARCHAR(50) NOT NULL,country VARCHAR(50)NOT NULL)";
+        $sql = "CREATE TABLE IF NOT EXISTS users (id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT, firstName VARCHAR(50)NOT NULL,lastName VARCHAR(50)NOT NULL,pseudo VARCHAR(50)NOT NULL,email VARCHAR(100)NOT NULL,mdp VARCHAR(255)NOT NULL,phone VARCHAR(30) NOT NULL,civility ENUM('f','h')NOT NULL,birthday DATE NOT NULL,address VARCHAR(50) NULL,zip VARCHAR(50) NULL,city VARCHAR(50) NOT NULL,country VARCHAR(50)NOT NULL), role ENUM ('ROLE_USER','ROLE_ADMIN')DEFAULT 'ROLE_USER'";
 
         $request = $pdo->exec($sql);
     }
    // createTableUsers();
 
+    ////////function pour verfier si un EMAIL existe dans BDD///////////////////////////
+    function checkEmailUser(string $email):mixed{ //avec le type mixed je preciser que le retour de cette function pet_etre tableaux ou un boolean,si j'ai un utilisateure dans un bdd qui a le meme email donc retour c'est un tableau si non le retour c'est un boolean
+        $pdo=connexionBdd();
+        $sql="SELECT * FROM users WHERE email=:email";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+            ':email' => $email
+        ));
+
+
+$result=$request->fetch();
+return $result;
+
+    }
+      ////////function pour verifier si pseudo un existe dans BDD///////////////////////////
+
+   function checksudouser(string $pseudo):mixed{
+        $pdo=connexionBdd();
+        $sql="SELECT * FROM users WHERE pseudo=:pseudo";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+            ':pseudo' => $pseudo
+        ));
+
+
+$result=$request->fetch();
+return $result;
+
+    }
+
+ ////////////function de CRUD pou les utilisateure///////////////////////////////////////
+
+
+ 
+    function inscriptionUsers(string $firstName, string $lastName, string $pseudo, string $mdp,  string $email, string $phone, string $civility, string $birthday, string $address, string $zip, string $city, string $country ): void {
+
+        $pdo = connexionBdd(); // je stock ma connection à la BDD dans une variable 
+    
+        $sql = "INSERT INTO users
+        (firstName, lastName, pseudo, mdp, email, phone, civility, birthday, address, zip, city, country)
+        VALUES
+        (:firstName , :lastName, :pseudo, :mdp,  :email, :phone, :civility, :birthday, :address, :zip, :city, :country)"; // Requeêt d'insertion que je la stock dans une variable
+        $request = $pdo->prepare($sql);// Je prépare ma requête  et je l'exécute
+        $request->execute(array( 
+                        ':firstName'=> $firstName,
+                        ':lastName' => $lastName,
+                        ':pseudo' => $pseudo,
+                        ':mdp' => $mdp,
+                        ':email' => $email,
+                        ':phone'=> $phone,
+                        ':civility' => $civility,
+                        ':birthday' => $birthday,
+                        ':address'=> $address,
+                        ':zip' => $zip,
+                        ':city' => $city,
+                        ':country' => $country,
+                   )); 
+                   
+   }
+   /////////////////////////////////////////////////////////////////////////////
+
+///une function pour verifier un utilisateure dans la BDD******************
+   function checkuser(string$email,string $pseudo):mixed{
+    $pdo=connexionBdd();
+        $sql="SELECT * FROM users WHERE pseudo=:pseudo AND email =:email";
+        $request=$pdo->prepare($sql);
+        $request->execute(array(
+            ':pseudo' => $pseudo,
+            ':email' => $email
+        ));
+
+
+$result=$request->fetch();
+return $result;
+
+
+   }
+
+
+   //********************************************************************************* */
+ 
+
     ////////create function pour table Films///////////////////////////
 
-    function createfilms(){
-        $pdo = connexionBdd();
-        $sql = "CREATE TABLE IF NOT EXISTS films (id_film INT NOT NULL PRIMARY KEY AUTO_INCREMENT,categorie_id INT NOT NULL, title VARCHAR(100) NOT NULL,director VARCHAR(50)NOT NULL,actors VARCHAR(100)NOT NULL,ageLimit VARCHAR(5)  NULL,duration TIME NOT NULL,synopsis TEXT NOT NULL,date DATE NOT NULL,image VARCHAR(255)NOT NULL,price FLOAT NOT NULL,stock INT NULL)";
+    // function createfilms(){
+    //     $pdo = connexionBdd();
+    //     $sql = "CREATE TABLE IF NOT EXISTS films (id_film INT NOT NULL PRIMARY KEY AUTO_INCREMENT,categorie_id INT NOT NULL, title VARCHAR(100) NOT NULL,director VARCHAR(50)NOT NULL,actors VARCHAR(100)NOT NULL,ageLimit VARCHAR(5)  NULL,duration TIME NOT NULL,synopsis TEXT NOT NULL,date DATE NOT NULL,image VARCHAR(255)NOT NULL,price FLOAT NOT NULL,stock INT NULL)";
 
-        $request = $pdo->exec($sql);
-    }
+    //     $request = $pdo->exec($sql);
+    // }
    // createfilms();
+   //////////////////////////////////////////////////////////////////
+   /*************************exercises08/06/23************************************************** */
+////////create function pour récuparation tous les utilisateure///////////////////////////01/06/
+
+
+function alluser() : array {
+    $pdo=connexionBdd();
+    // echo "function";
+     $sql="SELECT * FROM users";// requête d'insertion que je stocke dans une variable
+     $request = $pdo->query($sql);
+     $result = $request ->fetchAll();// je utiliser fetchall pour recuperer toutes les lignes à la fois
+    return $result;//ma fonction retourne un tableau avec les données récupérer de la BDD
+ }
+
+ //////////////////////////////////function pour suprimer un utilisateure
+ function deleteuser(int $id):void{
+    $pdo=connexionBdd();
+    $sql="DELETE FROM users WHERE id_user= :id";
+    $request=$pdo->prepare($sql);
+    $request->execute(array(
+        ':id' => $id
+    ));
+
+}
+
+
+/////////////////////////// recuperation un seule utilisateure
+function showuser(int $id): array{
+    $pdo=connexionBdd();
+    $sql="SELECT * FROM users WHERE id_user = :id";
+    $request=$pdo->prepare($sql);
+    $request->execute(array(
+       
+        ':id' => $id
+    ));
+    $result=$request->fetch();
+    return $result;
+}
+
+//////function pour modification le  role
+function updateRole(string $role,int $id):void{
+
+    $pdo=connexionBdd();
+    $sql="UPDATE  users SET role =:role where id_user = :id";
+    $request=$pdo->prepare($sql);
+    $request->execute(array(
+        ':role' => $role,
+        ':id' => $id
+    ));
+
+}
+  
 
  ////////create function pour la  création des clé etrangers///////////////////
  
@@ -339,5 +526,27 @@ function updateFilm(int $id, string $title, string $director, string $actors, st
      //creation de la clé etranger dans key table films
  //foreignKey('films','categorie_id','categories','id_category');
 //on execute argument
+
+/////////////////////pour sortir recent(live films)films and just affiche que 6 films  19/06/23 
+function filmbydate(){
+    $pdo=connexionBdd();
+    $sql= "SELECT * FROM films  ORDER BY date DESC LIMIT 6 ";
+    $request = $pdo->query($sql);
+    $result = $request->fetchAll();
+    return $result;
+
+}
+//////////////////////////
+//  calculerMontantTotal() pour calculer le montant total du panier en additionnant les sous-totaux de chaque film.
+function calculerMontantTotal(array $tab) :int{
+    $montant_total = 0;
+
+    foreach ($tab as $key) {
+        $montant_total += $key['price'] * $key['quantity'];
+    }
+
+    return $montant_total;
+}
+
 
     ?>

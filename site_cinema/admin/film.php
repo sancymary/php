@@ -1,7 +1,16 @@
 <?php
 $title=" Films";
-require_once"../inc/function.inc.php";
- require_once"../inc/header.inc.php";
+//require_once "../inc/function.inc.php";
+ require_once "../inc/header.inc.php";
+
+ if(empty($_SESSION['user'])){
+    header("location:".RACINE_SITE."authentification.php");
+
+}else{
+if($_SESSION['user']['role']=='ROLE_USER'){
+    header("location:".RACINE_SITE."index.php");
+}
+} 
  $films=allFilm();
 //  debug($films);
 ?>

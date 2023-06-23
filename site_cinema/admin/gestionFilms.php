@@ -1,7 +1,15 @@
 <?php
 $title="gestion/Films";
 require_once "../inc/function.inc.php";
-require_once "../inc/header.inc.php";
+
+if(empty($_SESSION['user'])){
+    header("location:".RACINE_SITE."authentification.php");
+
+}else{
+if($_SESSION['user']['role']=='ROLE_USER'){
+    header("location:".RACINE_SITE."index.php");
+}
+} 
 
 ?>
 <?php
@@ -26,7 +34,7 @@ if(isset($_GET['action']) && isset($_GET['id_film'])){
         $idfilm  = htmlentities($_GET['id_film']) ;
 
         $film  = showFilm($idfilm);
-   
+
     }else{
 
         header('location:dashboard.php?categories_php');
@@ -145,6 +153,7 @@ debug($_FILES);
              }
           // j'insére mon film avec la fonction addFilm() créée dans le fichier fonctions.php 
           header('location:dashboard.php?films_php');
+          //redirection de page 
 
 
         }
@@ -152,6 +161,8 @@ debug($_FILES);
 
     }
 }
+
+require_once "../inc/header.inc.php";
 
 
 ////////////////////////////////////////////////////////POUR FORM VALITATION EXERCICES 01/06/23

@@ -1,16 +1,20 @@
 <?php
 $title = "categories";
 require_once "../inc/function.inc.php";
-require_once "../inc/header.inc.php";
 
+if(empty($_SESSION['user'])){
+    header("location:".RACINE_SITE."authentification.php");
+
+}else{
+    if($_SESSION['user']['role']=='ROLE_USER'){
+        header("location:".RACINE_SITE."index.php");
+    }
+} 
 
 // debug($_GET);
 // die;
 
 //supression d'une categorie
-
-
-
 
 //pour update
 if(isset($_GET['action']) && isset($_GET['id_category'])){
@@ -36,18 +40,14 @@ if(isset($_GET['action']) && isset($_GET['id_category'])){
         header('location:dashboard.php?categories_php');
     }
 
- }
-
-
-
-
+}
 /* //--------------------------
     // La superglobale $_POST
     //---------------------------
 
     debug($_POST); 
     /*
-    $_POST est une superglobale qui permet de récupéter les données saisie dans un formulaire.
+    $_POST est une superglobale qui permet de récupérer les données saisie dans un formulaire.
 
     // Comme il s'agit d'une superglobale, $_POST est donc un tableau (array), et il est disponible dans tous les contextes du script, y compris au sein des fonctions (pas besoin de faire "global "$_POST").
         Le tableau $_POST se remplit de la manière suivante :
@@ -111,9 +111,10 @@ if (!empty($_POST)){//// petit rappel : empty() vérifie si une variable est vid
             header('location:dashboard.php?categories_php');
          }else{
             addCatagory( $nameCategorie,$description);
-            header('location:dashboard.php?categories_php');//la methode header permet à envoyer des request HTTP donc elle raffrachir la page est suprimer les donner enregistré
+           // header('location:dashboard.php?categories_php');//la methode header permet à envoyer des request HTTP donc elle raffrachir la page est suprimer les donner enregistré
+            //(je un propleme quand je insere le category il add mail avec une erroure donc je commander  //header('location:dashboard.php?categories_php'); )
          }
-        
+        //  header('location:dashboard.php?categories_php');
        
        
 
@@ -125,6 +126,7 @@ if (!empty($_POST)){//// petit rappel : empty() vérifie si une variable est vid
 
 }
 
+ require_once "../inc/header.inc.php";
 ?>
 
 <div class="row mt-5 "style="padding-top:8rem">
