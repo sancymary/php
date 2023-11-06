@@ -1,0 +1,355 @@
+:root{
+   
+     /* --gray-2: #353535; */
+    --gray: #7F7F7F;
+    --red: #f5f5f5;
+    /* --gray-light: #f5f5f5; */
+    /* --black: #000; */
+    /* --red:#E54C2A; */
+    --cougete:'Courgette',cursive;
+    --roboto:'Roboto',sans-serif;
+    --anton:'Jost', sans-serif;
+    --box-shadow-dark: 0px 5px 10px 0px rgba(50,50,50,.8);
+    --box-shadow-light:  -1px 1px 10px 0px #EFE8E8;;
+    font-size: 62.5%;
+    
+  
+}
+
+*{
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    text-decoration: none;
+   
+}
+
+
+body {
+   font-size: 1.6rem;
+   font-family: 'Roboto',sans-serif;
+   /* font-family: 'Roboto Condensed', sans-serif; */
+   /* background-color: var(--gray-light); */
+    /* background-color:#EFE8E8; */
+    background-color:#ffffff;
+    color: #fff; 
+  
+   
+}
+/********************************* Page header ***********************************/
+nav {
+    background-color: #d85332;
+    margin-bottom: 5rem !important; 
+}
+nav li a:hover{
+    border-bottom: 1px solid white;
+}
+
+h1 {
+    font-size: 4rem !important;
+    margin: .8rem 4rem;
+    font-weight: bolder;
+   
+}
+h1 a{
+    font-size: 2rem !important;
+    font-style: italic;
+    color: var(--red) !important;
+    font-family: 'Roboto Condensed', sans-serif !important;
+}
+nav li a{
+    color: #000 !important;
+    margin: 0.8rem ;
+}
+
+.dropdown-item:focus, .dropdown-item:hover{
+    width: 100% !important;
+    background-color: var(--red) !important;
+    margin: 0 !important;
+}
+nav .navbar-toggler {
+    background-color: var(--red);
+    font-size: 1.7rem;
+}
+
+main{
+    padding: 10rem 4rem;
+    min-height: 815px; /* je le met afin d'empêcher le footer de rementer dans la page*/
+    transition: all .2s;
+    background-color: #ffffff;
+    /* background-color: #FFF2D8; */
+
+}
+/********************************* pour page  dashboard ***********************************/
+.img{
+    background-image: url(../img/caresole-3transformed.jpeg);
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+/* .dash{
+
+} */
+
+
+.dash li{    
+        /* display: flex;
+        justify-content: center; */
+        width: 150px;
+        height: 100px;
+        padding: 5px 10px;
+        text-decoration: none;
+        font-style: italic;
+        color:#fff;
+        font-weight:bold;
+        background:#FFF6E0;
+        text-align: center;  
+        display: block; 
+}
+.dash a{    
+    justify-content: center;
+    width: 125px;
+    height: 50px;
+    padding: 10px;
+    padding-left: 20px;
+    margin-top: 20px;
+    background-color:#3e7c76;  
+}
+.dash a:hover{
+    background-color: #dd370e;
+}
+.showmenu{
+display: block;
+}
+
+/* ///////////////// pour page user/////////////////////////////////////////////  */
+.user{
+    background-color:#7F7F7F
+}
+.italique{
+    font-family: var(--cougete);
+    box-sizing: border-box;
+    width: 30%;
+    border: solid #676869 10px;
+    margin: auto;
+    border-radius: 10px 75px / 75px;
+    padding-bottom: 5px;
+    background-color: #f5f5f5;
+}
+.theadback{
+    background-color: #181717;
+    text-align: center;
+    font-family: 'Courgette', cursive;
+
+}
+
+.bacuser{
+    background-image: url(../img/backgrounproduct.jpg);
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    background-position: center;
+
+}
+/* ///////////////// pour page product/////////////////////////////////////////////  */
+.proform{
+    font-family: var(--cougete);
+    width: 25%; 
+    margin: auto;
+    background-color: #EFE8E8;
+    padding: 5px;
+}
+form.back {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #7F7F7F;
+    box-sizing: content-box; 
+}
+
+
+form.back > div.row {
+    font-size: 2rem;
+}
+
+form.back .row {
+    padding: 2.5rem;
+   
+    color: #000;   
+    
+}
+
+form.back  label {
+    margin-bottom: 1.6rem;
+    font-weight: bolder;   
+}
+
+.backpro{
+    background-image: url(../img/backgrounproduct.jpg);
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+/* ///////////////////pour page  register////////////////////////////////// */
+.regisletre{
+    color: black !important; 
+    font-family: var(--cougete);
+}
+.regisletre h1{
+    color: black !important; 
+    font-family: var(--anton);
+}
+.formregister{
+    border:  thick double rgb(116, 110, 110); 
+    border-radius: 50px;
+
+}
+/* ///////////////////pour page  authentification////////////////////////////////// */
+.formauthenti{
+    border:  thick double rgb(85, 78, 78); 
+    border-radius: 50px;
+}
+
+/* /////////////////////pour page propos//////////////// */
+.propos p{
+    box-sizing: border-box;
+    font-family: var(--cougete);
+    font-weight: bolder;
+    background-color: #F8E8EE;
+    font-size: large;
+    width: 100%;
+    border: solid #d3d3d6 10px;
+    border-radius: 50px;
+}
+.slider{
+    background-color: #EDE4E0;
+}
+
+
+/* /////////////////////////////////////pour page footer */
+footer{
+    background-color: #E54C2A;
+    /* height: 70px !important ; */
+    display: flex;
+   justify-content: space-around;
+}
+footer a{
+    text-decoration: none;
+    color: #000; 
+  
+    }
+
+
+/* /////////////////////pour page panier////////////////// */
+
+.panier img {
+    width: 40px;
+    padding: 8px 0;
+}
+.panier div {
+    width: 80%;
+    padding: 10px;
+    border-radius: 6px;
+}
+table {
+    border-collapse: collapse;
+    /* width: 100%; */
+   
+}
+th {
+    padding: 10px 0;
+    font-weight: 400;
+}
+
+
+/* classe pour cacher les card quand on click sur une  */
+.hidden{
+    padding: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    transition: all .5s;
+}
+
+
+.active{
+    background-color: var(--red) !important;
+    color: white !important;
+    font-weight: bolder;
+}
+/* /////////////////////////page pour index */
+.saindex{
+  border: solid;
+  border-radius: 100px;
+  background-color: #FFF5E0;
+
+}
+.testindex:hover {
+    color: #dd370e;
+    background-color: #d89090;
+    width: 100%;
+}
+.testindex:hover a {
+    color: #dd370e;
+    background-color: #ffffff;
+    position: absolute;
+    top: 40px; right: 20px;
+   
+}
+/* ////////////////////////////////////////////////page pour category//////////////////////// */
+.tablecategory{
+    background-color: #EDE4E0;
+}
+/* ////////////////////////////////////////////////page pour gestionProduct//////////////////////// */
+.tablegesProduct{
+    background-color: #EDE4E0;
+}
+
+/* //////////////////////pour page showproduct////////////////// */
+.show {
+    box-sizing: content-box;
+
+}
+.hovshow:hover{
+    margin: auto;
+    background-color: #676869;
+    width: 250px;
+   
+}
+.showdescri{
+    box-sizing: content-box;
+
+}
+
+
+/* /////////////////////////////pour commentair page index */
+/* .commentaire1 a{
+    text-decoration: none;
+} */
+.indexavis a {
+    text-decoration: none;
+}
+.box{
+    box-sizing: content-box; 
+}
+/* ////////////////////pour page mention */
+.mention p{
+    font-family: var(--cougete);
+
+}
+/* ////////////////////pour page confidential///////////  */
+.confidential p{
+    font-family: var(--cougete);
+}
+.confidential li{
+    font-family: var(--cougete);
+}
+/* ////////////////////pour page conditionvente///////////  */
+.condivente p{
+    font-family: var(--cougete);
+}
+.condivente li{
+    font-family: var(--cougete);
+}
